@@ -1,10 +1,9 @@
-﻿# Nombre del Proyecto
-Proyecto del Sprint 8: Urban Routes
+﻿# Proyecto - Urban Routes
 
 # Descripción del Proyecto
-El proyecto consiste en la automatización de pruebas para validar los pasos que implica en el proceso de solicitar  un taxi en la aplicación web Urban Routes.
+El proyecto consiste en pruebas automatizadas para validar la funcionalidad de solicitar un taxi en rutas urbanas mediante la aplicación web Urban Routes.
 
-# Descripción de las tecnologías
+# Tecnologías utilizadas
 Se usaron las siguientes herramientas: 
 - **PyCharm:** como herramienta de desarrollo
 - **Python:** como lenguaje de desarrollo

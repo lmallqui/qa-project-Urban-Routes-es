@@ -26,7 +26,7 @@ def retrieve_phone_code(driver) -> str:
                                               {'requestId': message_data["params"]["requestId"]})
                 code = ''.join([x for x in body['body'] if x.isdigit()])
         except WebDriverException:
-            time.sleep(1)
+            time.sleep(1)   #Se indica al comienzo no modificar
             continue
         if not code:
             raise Exception("No se encontró el código de confirmación del teléfono.\n"
@@ -53,13 +53,13 @@ class UrbanRoutesPage:
     #Localizadores para agregar metodo de pago
     button_payment_method = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[2]')
     button_add_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]')
-    card_number = (By.XPATH, '//*[@id="number"]')
+    card_number = (By.CSS_SELECTOR, '#number')  #cambio de selector
     card_cvv = (By.XPATH, '//div[@class="card-code-input"]/input[@id="code"]')
     button_add_new_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[2]/form/div[3]/button[1]')
     button_close_payment = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/button')
 
     #Localizadores para agregar mensaje para el conductor
-    comment_for_the_driver = (By.XPATH, '//input[@id="comment"]')
+    comment_for_the_driver = (By.CSS_SELECTOR, '#comment')  #cambio de selector
 
     #Localizadores de requisitos del pedido
     slide_blanket_scarves = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span')
@@ -93,31 +93,31 @@ class UrbanRoutesPage:
         self.set_to(to_address)
 
     def select_taxi(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_round).click()
 
     #Metodos para seleccionar tarifa
     def select_comfort_taxi(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_comfort).click()
 
     #Metodos para agregar numero de telefono
     def select_phone_number(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_phone_number).click()
 
     def input_phone_number(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.phone_number).send_keys(data.phone_number)
 
     def set_phone(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.select_phone_number()
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.input_phone_number()
 
     def select_next_button(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_add_number).click()
 
     def get_phone_number(self):
@@ -125,61 +125,61 @@ class UrbanRoutesPage:
 
     def set_code(self):
         phone_code = retrieve_phone_code(driver=self.driver)
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.phone_code).send_keys(phone_code)
 
     def select_confirm_code(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_confirm_code).click()
 
     #Metodos para ingresar metodo de pago
     def select_payment_method(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_payment_method).click()
 
     def select_add_card(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_add_card).click()
 
     def add_card(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.select_payment_method()
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.select_add_card()
 
     def input_card_number(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.card_number).send_keys(data.card_number)
 
     def get_card_number(self):
         return self.driver.find_element(*self.card_number).get_property('value')
 
     def input_cvv_card(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.card_cvv).send_keys(data.card_code)
 
     def get_cvv_card(self):
         return self.driver.find_element(*self.card_cvv).get_property('value')
 
     def select_register_card(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_add_new_card).click()
 
     def add_new_card(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.input_card_number()
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.input_cvv_card()
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.select_register_card()
 
     def close_modal(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_close_payment).click()
 
     #Metodos para ingresar comentario al conductor
     def send_comment(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.comment_for_the_driver).send_keys(data.message_for_driver)
 
     def get_comment(self):
@@ -187,14 +187,14 @@ class UrbanRoutesPage:
 
     #Metodos para requisitos del pedido
     def select_blanket_scarves(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.slide_blanket_scarves).click()
 
     def get_slide(self):
         return self.driver.find_element(*self.slide_blanket_scarves).is_selected()
 
     def select_icecream(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_icecream_increase).click()
         self.driver.find_element(*self.button_icecream_increase).click()
 
@@ -203,7 +203,7 @@ class UrbanRoutesPage:
 
     #Metodos para solicitar orden
     def select_order(self):
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(15)
         self.driver.find_element(*self.button_start_order).click()
 
     #Metodos para visualizar detalle de la orden
